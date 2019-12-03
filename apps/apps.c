@@ -2734,7 +2734,7 @@ int set_cert_times(X509 *x, const char *startdate, const char *enddate,
                    int days)
 {
     if (startdate == NULL || strcmp(startdate, "today") == 0) {
-        if (X509_gmtime_adj(X509_getm_notBefore(x), 0) == NULL)
+        if (X509_time_adj_ex(X509_getm_notBefore(x), -7, 0, NULL) == NULL)
             return 0;
     } else {
         if (!ASN1_TIME_set_string_X509(X509_getm_notBefore(x), startdate))

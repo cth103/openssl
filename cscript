@@ -10,6 +10,8 @@ def build(target, options):
             target.command('./Configure mingw -no-shared --prefix=%s' % target.directory)
         else:
             target.command('./Configure mingw64 -no-shared --prefix=%s' % target.directory)
+    elif target.platform == 'linux' and target.bits == 32:
+        target.command('./Configure linux-x86 -no-shared --prefix=%s' % target.directory)
     else:
         if target.platform == 'osx' and target.bits == 32:
             target.set('KERNEL_BITS', '32')

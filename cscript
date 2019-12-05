@@ -1,3 +1,5 @@
+submodules = False
+
 def dependencies(target, options):
     return ()
 

@@ -17,3 +17,6 @@ def build(target, options):
             target.set('KERNEL_BITS', '32')
         target.command('./config -no-shared --prefix=%s' % target.directory)
     target.command('make -j%d' % target.parallel)
+    if target.platform == 'linux':
+        # Make dcpomatic2_openssl available to the unit tests
+        target.command('cp apps/openssl %s/bin/dcpomatic2_openssl' % target.directory)

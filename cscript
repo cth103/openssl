@@ -12,10 +12,11 @@ def build(target, options):
             target.command('./Configure mingw64 -no-shared --prefix=%s' % target.directory)
     elif target.platform == 'linux' and target.bits == 32:
         target.command('./Configure linux-x86 -no-shared --prefix=%s' % target.directory)
+    elif target.platform == 'osx':
+        target.command('./Configure darwin64-%s-cc -no-shared --prefix=%s' % (target.arch, target.directory))
     else:
-        if target.platform == 'osx' and target.bits == 32:
-            target.set('KERNEL_BITS', '32')
         target.command('./config -no-shared --prefix=%s' % target.directory)
+
     target.command('make -j%d' % target.parallel)
     if target.platform == 'linux':
         # Make dcpomatic2_openssl available to the unit tests
